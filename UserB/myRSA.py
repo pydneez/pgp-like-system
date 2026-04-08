@@ -207,8 +207,8 @@ def descryptText(ciphertext, K):
 
 
 # ── Byte-level encrypt / decrypt ──────────────────────────────────────────────
-# These work on raw bytes objects (e.g. an AES session key) so the RSA layer
-# can be used just like in PGP: encrypt a session key as bytes, not as text.
+# work on raw bytes objects
+# encrypt a session key as bytes, not as text.
 
 def _toKeyTuple(K):
     """Accept either a plain (e_or_d, n) tuple OR a pycryptodome RsaKey object.
@@ -230,6 +230,7 @@ def encryptBytes(plainBytes, K):
     orig_len = len(plainBytes)
     
     # Convert bytes directly to one big integer
+    # print(plainBytes)
     m = int.from_bytes(plainBytes, 'big')
     
     # RSA: C = m^e mod n  (one operation — no blocks needed)
@@ -247,15 +248,10 @@ def decryptBytes(cipherBytes, K):
     K = _toKeyTuple(K)
     d, n = K
     
-    # print(cipherBytes)
-
     # Read header
     orig_len = int.from_bytes(cipherBytes[:2], 'big')
     c_bytes  = cipherBytes[2:]
     
-    # print(orig_len)
-    # print(c_bytes)
-
     # Convert cipher bytes to integer
     c = int.from_bytes(c_bytes, 'big')
     
