@@ -207,8 +207,8 @@ def descryptText(ciphertext, K):
 
 
 # ── Byte-level encrypt / decrypt ──────────────────────────────────────────────
-# These work on raw bytes objects (e.g. an AES session key) so the RSA layer
-# can be used just like in PGP: encrypt a session key as bytes, not as text.
+# work on raw bytes objects
+# encrypt a session key as bytes, not as text.
 
 def _toKeyTuple(K):
     """Accept either a plain (e_or_d, n) tuple OR a pycryptodome RsaKey object.
